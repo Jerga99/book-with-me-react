@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import { Header } from './components/shared/header/Header';
-import { RentalCard } from './components/rental/RentalCard';
+import { RentalList } from './components/rental/RentalList';
 
 class App extends Component {
   render() {
@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <Header/>
         <div className="container">
-          <RentalCard></RentalCard>
+          <RentalList></RentalList>
         </div>
       </div>
     );
