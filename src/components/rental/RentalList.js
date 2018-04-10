@@ -1,5 +1,5 @@
 import React from 'react';
-import {RentalCard} from './RentalCard';
+import { RentalCard } from './RentalCard';
 
 export class RentalList extends React.Component {
 
@@ -19,7 +19,10 @@ export class RentalList extends React.Component {
 
   renderRentals() {
     return this.state.rentals.map((rental, index) => {
-      return <RentalCard colClass="col-md-3 col-xs-6" key={index}> </RentalCard>;
+      return (
+        <RentalCard key={index} id={index} colClass="col-md-3 col-xs-6">
+        </RentalCard>
+      );
     });
   }
 

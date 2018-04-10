@@ -6,6 +6,15 @@
   }
 
   /* SINGLE CARD STYLES*/
+
+  a {
+    color: $main-text-color-gray;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   .bwm-card {
     border: none;
 
