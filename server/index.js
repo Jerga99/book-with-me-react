@@ -1,14 +1,20 @@
 const express       = require("express"),
       app           = express(),
-      bodyParser    = require("body-parser");
-      // mongoose        = require("mongoose"),
-      // Rental          = require("./models/rental"),
+      bodyParser    = require("body-parser"),
+      mongoose      = require("mongoose"),
+      keys          = require("./keys"),
+      fakeDB        = require("./seed-db"),
+      Rental        = require("./models/rental");
 
 const rentalsRoutes = require("./routes/rentals");
       // authRoutes    = require("./routes/auth"),
 
-// var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
-// mongoose.connect(url);
+const url = `mongodb://${keys.DB_USER}:${keys.DB_PASSWORD}@ds241489.mlab.com:41489/bwm-dev-react`;
+
+mongoose.connect(url).then(() => {
+  // populate DB
+  fakeDB.seed();
+});
 
 app.use(bodyParser.json()); // use od body parser to get values from get req
 

@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const seedDb = require("../seed-db");
+const Rental = require("../models/rental");
 
-const db = seedDb();
+router.get("", function(req, res) {
+  Rental.find({}, function(err, allRentals) {
+    res.json(allRentals);
+  });
+});
 
-router.get("/", function(req, res) {
-  res.json(db['rentals']);
+router.get("/:id", function(req, res) {
+  Rental.findById(req.params.id, function(err, foundRental) {
+    res.json(foundRental);
+  });
 });
 
 module.exports = router;
