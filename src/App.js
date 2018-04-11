@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 // import logo from './logo.svg';
 import './App.css';
 // Components
-import { Header } from './components/shared/header/Header';
-import RentalList from './components/rental/RentalList';
-import RentalDetail from './components/rental/rental-detail/RentalDetail';
+import { Header } from 'components/shared/header/Header';
+import RentalList from 'components/rental/RentalList';
+import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 
 // Actions
 import * as actions from './actions';

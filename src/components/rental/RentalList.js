@@ -1,6 +1,6 @@
 import React from 'react';
 import { RentalCard } from './RentalCard';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class RentalList extends React.Component {
 
@@ -19,7 +19,6 @@ class RentalList extends React.Component {
     } else {
       return '';
     }
-
   }
 
   render() {

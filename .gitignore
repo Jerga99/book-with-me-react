@@ -25,3 +25,5 @@ yarn-error.log*
 /src/App.css
 
 /server/keys.js
+
+notes.txt

@@ -13,7 +13,7 @@ const url = `mongodb://${keys.DB_USER}:${keys.DB_PASSWORD}@ds241489.mlab.com:414
 
 mongoose.connect(url).then(() => {
   // populate DB
-  // fakeDB.seed();
+  fakeDB.seed();
 });
 
 app.use(bodyParser.json()); // use od body parser to get values from get req
