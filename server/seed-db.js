@@ -10,7 +10,8 @@ module.exports = (function() {
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 4,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 43
+      "dailyRate": 43,
+      "shared": true
       },
       {
       "title": "Central Apartment",
@@ -20,7 +21,8 @@ module.exports = (function() {
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 1,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 11
+      "dailyRate": 11,
+      "shared": false
       },
       {
       "title": "Beautiful house",
@@ -30,7 +32,8 @@ module.exports = (function() {
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 5,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 23
+      "dailyRate": 23,
+      "shared": false
     }]
   }
 

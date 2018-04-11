@@ -9,6 +9,7 @@ const rentalShema = new mongoose.Schema({
   bedrooms: Number,
   description: String,
   dailyRate: Number,
+  shared: Boolean,
   createdAt: {type: Date, default: Date.now}
 });
 
