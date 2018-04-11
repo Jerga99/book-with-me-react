@@ -1,29 +1,42 @@
 import React from 'react';
 import { RentalCard } from './RentalCard';
+import { Axios } from '../../services/axios';
 
 export class RentalList extends React.Component {
 
   constructor(props) {
     super(props);
 
+    this.axiosService = Axios.getInstance();
     this.state = {
       rentals: []
     }
   }
 
   componentWillMount() {
-    this.setState({
-      rentals: [1,2,3]
+    this.axiosService.get('/rentals').then((res) => {
+      this.setState({
+        rentals: res.data
+      })
     })
   }
 
   renderRentals() {
-    return this.state.rentals.map((rental, index) => {
-      return (
-        <RentalCard key={index} id={index} colClass="col-md-3 col-xs-6">
-        </RentalCard>
-      );
+    const rentals = this.state.rentals;
+
+    if (rentals.length > 0) {
+      return rentals.map((rental, index) => {
+        return (
+          <RentalCard rental={rental}
+                      key={rental._id}
+                      colClass="col-md-3 col-xs-6">
+          </RentalCard>
+        );
     });
+    } else {
+      return '';
+    }
+
   }
 
   render() {
