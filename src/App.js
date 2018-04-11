@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import './App.css';
 import { Header } from './components/shared/header/Header';
 import { RentalList } from './components/rental/RentalList';
-import { RentalDetail } from './components/rental/RentalDetail';
+import { RentalDetail } from './components/rental/rental-detail/RentalDetail';
 
 class App extends Component {
 
