@@ -1,30 +1,18 @@
 import React from 'react';
-import { Axios } from '../../../services/axios';
 import { RentalDetailInfo } from './RentalDetailInfo';
+import { connect } from 'react-redux'
+import * as actions from '../../../actions';
 
-export class RentalDetail extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.axiosService = Axios.getInstance();
-    this.state = {
-      rental: undefined
-    }
-  }
+class RentalDetail extends React.Component {
 
   componentWillMount() {
-    this.axiosService.get(`/rentals/${this.props.match.params.id}`).then((res) => {
-      this.setState({
-        rental: res.data
-      })
-    })
+    this.props.dispatch(actions.fetchRentalByid(this.props.match.params.id));
   }
 
   render() {
-    const rental = this.state.rental;
+    const { rental, isFetching } = this.props;
 
-    if (this.state.rental) {
+    if (!isFetching && rental) {
       return (
         <section id="rentalDetails">
           <div className="upper-section">
@@ -53,3 +41,14 @@ export class RentalDetail extends React.Component {
     }
   }
 }
+
+function mapStateToProps(state) {
+  const { item, isFetching } = state.selectedRental;
+
+  return {
+    rental: item,
+    isFetching
+  }
+}
+
+export default connect(mapStateToProps)(RentalDetail);

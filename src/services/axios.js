@@ -4,7 +4,7 @@ export class Axios {
 
   static axiosInstance;
 
-  static getInstance() {
+  static init() {
     return this.axiosInstance ? this.axiosInstance : this.createInstance();
   }
 
