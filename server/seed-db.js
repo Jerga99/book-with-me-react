@@ -3,9 +3,9 @@ const Rental = require("./models/rental");
 module.exports = (function() {
   const data = {
     "rentals": [{
-      "title": "Grand Old Mansion-1",
-      "city": "San Francisco",
-      "street": "Some fake street",
+      "title": "Nice view on River",
+      "city": "kosice",
+      "street": "Letna 9",
       "category": "condo",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 4,
@@ -13,9 +13,9 @@ module.exports = (function() {
       "dailyRate": 43
       },
       {
-      "title": "Grand Old Mansion-2",
-      "city": "San Francisco",
-      "street": "Some fake street",
+      "title": "Central Apartment",
+      "city": "san francisco",
+      "street": "main street",
       "category": "apartment",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 1,
@@ -23,10 +23,10 @@ module.exports = (function() {
       "dailyRate": 11
       },
       {
-      "title": "Grand Old Mansion-3",
-      "city": "San Francisco",
-      "street": "Some fake street",
-      "category": "estate",
+      "title": "Beautiful house",
+      "city": "new york",
+      "street": "times square",
+      "category": "house",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 5,
       "description": "Very nice apartment in center of the city.",
