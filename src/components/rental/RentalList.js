@@ -1,28 +1,11 @@
 import React from 'react';
 import { RentalCard } from './RentalCard';
-import { Axios } from '../../services/axios';
+import { connect } from 'react-redux'
 
-export class RentalList extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.axiosService = Axios.getInstance();
-    this.state = {
-      rentals: []
-    }
-  }
-
-  componentWillMount() {
-    this.axiosService.get('/rentals').then((res) => {
-      this.setState({
-        rentals: res.data
-      })
-    })
-  }
+class RentalList extends React.Component {
 
   renderRentals() {
-    const rentals = this.state.rentals;
+    const rentals = this.props.rentals;
 
     if (rentals.length > 0) {
       return rentals.map((rental, index) => {
@@ -50,3 +33,11 @@ export class RentalList extends React.Component {
       )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    rentals: state.rentals
+  }
+}
+
+export default connect(mapStateToProps)(RentalList);
