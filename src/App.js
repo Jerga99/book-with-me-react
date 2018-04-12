@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 // import logo from './logo.svg';
 import './App.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 // Components
 import { Header } from 'components/shared/header/Header';
 import RentalList from 'components/rental/RentalList';
