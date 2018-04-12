@@ -8,6 +8,8 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import { Header } from 'components/shared/header/Header';
 import RentalList from 'components/rental/RentalList';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
+import { Register } from 'components/register/Register';
+import { Login } from 'components/login/Login';
 
 // Actions
 import * as actions from './actions';
@@ -27,6 +29,8 @@ class App extends Component {
               <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
               <Route exact path='/rentals' component={RentalList}/>
               <Route exact path='/rentals/:id' component={RentalDetail}/>
+              <Route exact path='/register' component={ Register }/>
+              <Route exact path='/login' component={ Login }/>
             </div>
           </div>
         </BrowserRouter>
