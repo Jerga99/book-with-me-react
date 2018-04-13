@@ -5,7 +5,8 @@ import { RECIEVE_RENTALS,
          REGISTER_SUCCESS,
          REGISTER_FAILURE,
          LOGIN_SUCCESS,
-         LOGIN_FAILURE } from './types';
+         LOGIN_FAILURE,
+         RESET_AUTH_ERRORS } from './types';
 
 const axiosService = Axios.init();
 
@@ -74,14 +75,6 @@ export const register = (userData) => {
 
 // AUTH ACTIONS - LOGIN
 
-const loginSuccess = (data) => {
-  return {
-    type: LOGIN_SUCCESS,
-    isAuth: true,
-    token: data.token
-  }
-}
-
 const loginFailure = (errors) => {
   return {
     type: LOGIN_FAILURE,
@@ -89,12 +82,26 @@ const loginFailure = (errors) => {
   }
 }
 
+export const resetAuthErrors = () => {
+  return {
+    type: RESET_AUTH_ERRORS,
+  }
+}
+
+export const loginSuccess = (token) => {
+  return {
+    type: LOGIN_SUCCESS,
+    token: token
+  }
+}
+
 export const login = (userData) => {
   return dispatch => {
     return axiosService.post('/auth', {...userData})
-      .then(res => {
-        localStorage.setItem('auth_token', res.data.token);
-        dispatch(loginSuccess(res.data));
+      .then(res => res.data.token)
+      .then(token => {
+        localStorage.setItem('auth_token', token);
+        dispatch(loginSuccess(token));
       })
       .catch(({response}) => dispatch(loginFailure(response.data.errors)))
   }
