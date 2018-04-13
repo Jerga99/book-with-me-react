@@ -1,6 +1,7 @@
 const keys = require("../keys");
 const User = require("../models/user");
 const {normalizeErrors} = require("../helpers/mongoose-helper");
+const jwt = require('jwt-simple');
 
 
 exports.signup = function(req, res, next){
@@ -42,4 +43,51 @@ exports.signup = function(req, res, next){
     return res.json({registered: true});
    });
  });
+}
+
+exports.signin = function(req, res, next) {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (!email || !password) return res.status(422).send({errors: [{title: 'Missing Data', detail: "Provide email and password"}] });
+
+  User.findOne({email: email}, function(err, user) {
+    if (err) return res.status(422).send({errors: normalizeErrors(err.errors) });
+    if (!user) return res.status(422).send({errors: [{title: 'Invalid User', detail: "User doesnt exist"}] });
+
+    if (user.isSamePassword(password)) {
+      return res.json({token: jwt.encode({userId: user.id, email: user.email, username: user.username}, keys.SECRET), email: user.email})
+    } else {
+      return res.status(422).send({errors: [{title: 'Wrong Data', detail: "Wrong email or password"}] });
+    }
+  })
+}
+
+exports.authMiddleware = function(req, res, next) {
+  const token = req.headers.authorization || '';
+
+  if (token) {
+    const user = parseToken(token);
+
+    User.findById(user.userId, function(err, user){
+      if (err) return res.status(422).send({errors: normalizeErrors(err.errors) });
+
+      if (user) {
+        res.locals.user = user;
+        next();
+      } else {
+        return res.status(422).send({errors: [{title: 'Not Authorized', detail: "You are not authorized"}] });
+      }
+    });
+  } else {
+    return res.status(422).send({errors: [{title: 'Not Authorized', detail: "You are not authorized"}] });
+  }
+}
+
+function parseToken(token) {
+  if (token.includes('Bearer')) {
+    return jwt.decode(token.split(' ')[1], keys.SECRET)
+  }
+
+  return token;
 }
