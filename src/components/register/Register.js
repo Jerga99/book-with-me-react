@@ -16,7 +16,7 @@ export class Register extends React.Component {
 
   registerUser(values) {
     this.props.dispatch(actions.register(values)).then(
-      ({registered}) => this.setState({ redirect: true }));
+      ({registered}) => {if (registered) this.setState({ redirect: true });});
   }
 
   render() {

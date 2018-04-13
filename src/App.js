@@ -9,7 +9,7 @@ import { Header } from 'components/shared/header/Header';
 import RentalList from 'components/rental/RentalList';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Register from 'components/register/Register';
-import { Login } from 'components/login/Login';
+import Login from 'components/login/Login';
 import { withQueryString } from 'hoc/withQueryString';
 
 // Actions
