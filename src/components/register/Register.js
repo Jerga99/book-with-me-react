@@ -1,38 +1,39 @@
 import React from 'react';
+import RegisterForm from './RegisterForm';
+import { connect } from 'react-redux';
+import * as actions from 'actions';
+import { Redirect } from 'react-router-dom';
 
 export class Register extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.registerUser = this.registerUser.bind(this);
+    this.state = {
+      redirect: false
+    }
+  }
+
+  registerUser(values) {
+    this.props.dispatch(actions.register(values)).then(
+      ({registered}) => this.setState({ redirect: true }));
+  }
+
   render() {
+    const { redirect } = this.state;
+    const { errors } = this.props.auth;
+
+    if (redirect) {
+      return <Redirect to='/login?register=1'/>;
+    }
+
     return (
       <section id="register">
         <div className="bwm-form">
           <div className="row">
             <div className="col-md-5">
               <h1>Register</h1>
-              <form>
-                <div className="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" className="form-control" id="username" required/>
-                </div>
-
-                <div className="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email" required/>
-                </div>
-
-                <div className="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" className="form-control" id="password required"/>
-                </div>
-
-                <div className="form-group">
-                  <label for="confirmationPassword">Confirm Password</label>
-                  <input type="password" className="form-control" id="confirmationPassword" required/>
-                </div>
-
-                <button type="submit" className="btn btn-bwm">Submit</button>
-
-              </form>
+              <RegisterForm errors={errors} submitCb={this.registerUser}/>
             </div>
             <div className="col-md-6 ml-auto">
               <div className="image-container">
@@ -46,3 +47,11 @@ export class Register extends React.Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Register);

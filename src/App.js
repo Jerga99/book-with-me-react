@@ -8,8 +8,9 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import { Header } from 'components/shared/header/Header';
 import RentalList from 'components/rental/RentalList';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
-import { Register } from 'components/register/Register';
+import Register from 'components/register/Register';
 import { Login } from 'components/login/Login';
+import { withQueryString } from 'hoc/withQueryString';
 
 // Actions
 import * as actions from './actions';
@@ -27,10 +28,10 @@ class App extends Component {
             <Header/>
             <div className="container">
               <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
-              <Route exact path='/rentals' component={RentalList}/>
-              <Route exact path='/rentals/:id' component={RentalDetail}/>
+              <Route exact path='/rentals' component={ RentalList }/>
+              <Route exact path='/rentals/:id' component={ RentalDetail }/>
               <Route exact path='/register' component={ Register }/>
-              <Route exact path='/login' component={ Login }/>
+              <Route exact path='/login' component={ withQueryString(Login) }/>
             </div>
           </div>
         </BrowserRouter>
