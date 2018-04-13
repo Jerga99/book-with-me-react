@@ -23,11 +23,7 @@ class Login extends React.Component {
 
   render() {
     const { loginErrors } = this.state;
-    const { register } = this.props.params;
-
-    if (this.props.auth.isAuth) {
-      return <Redirect to='/'/>;
-    }
+    const { fromSuccessRegister } = this.props.location.state || false;
 
     return (
       <section id="login">
@@ -35,7 +31,7 @@ class Login extends React.Component {
           <div className="row">
             <div className="col-md-5">
               <h1>Login</h1>
-              { register &&
+              { fromSuccessRegister &&
                 <div className="alert alert-success">
                   <p>You have been succesfuly registered, please login in</p>
                 </div>
