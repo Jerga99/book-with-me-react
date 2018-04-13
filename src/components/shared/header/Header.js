@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-export function Header() {
+export function Header(props) {
+
+  const { isAuth } = props;
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -16,8 +18,9 @@ export function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
-            <Link to="/login" className="nav-item nav-link active" href="">Login <span className="sr-only">(current)</span></Link>
-            <Link to="/register" className="nav-item nav-link" href="">Register</Link>
+            {(!isAuth && <Link to="/login" className="nav-item nav-link active" href="">Login <span className="sr-only">(current)</span></Link>)}
+            {(!isAuth && <Link to="/register" className="nav-item nav-link" href="">Register</Link>)}
+            {(isAuth && <Link to="" className="nav-item nav-link" href="">Logout</Link>)}
           </div>
         </div>
       </div>

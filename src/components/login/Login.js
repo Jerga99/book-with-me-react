@@ -4,19 +4,25 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from 'actions';
 
-export class Login extends React.Component {
+class Login extends React.Component {
 
   constructor(props) {
     super(props);
     this.loginUser = this.loginUser.bind(this);
+    this.state = {
+      loginErrors: []
+    }
   }
 
   loginUser(values) {
-    this.props.dispatch(actions.login(values));
+    this.props.dispatch(actions.login(values)).then(
+      (res) => {
+        if (res && res.errors) this.setState({loginErrors: res.errors})
+      });
   }
 
   render() {
-    const { errors } = this.props.auth;
+    const { loginErrors } = this.state;
     const { register } = this.props.params;
 
     if (this.props.auth.isAuth) {
@@ -34,13 +40,12 @@ export class Login extends React.Component {
                   <p>You have been succesfuly registered, please login in</p>
                 </div>
               }
-              <LoginForm errors={errors} submitCb={this.loginUser}/>
+              <LoginForm errors={loginErrors} submitCb={this.loginUser}/>
             </div>
             <div className="col-md-6 ml-auto">
               <div className="image-container">
                 <h2 className="catchphrase">Hundreds of awesome places in reach of few clicks.</h2>
                 <img src={process.env.PUBLIC_URL + '/img/login-image.jpg'} alt=""/>
-
               </div>
             </div>
           </div>
@@ -50,10 +55,4 @@ export class Login extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  }
-}
-
-export default connect(mapStateToProps)(Login);
+export default connect()(Login);

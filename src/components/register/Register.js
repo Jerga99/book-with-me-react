@@ -4,27 +4,35 @@ import { connect } from 'react-redux';
 import * as actions from 'actions';
 import { Redirect } from 'react-router-dom';
 
-export class Register extends React.Component {
+class Register extends React.Component {
 
   constructor(props) {
     super(props);
     this.registerUser = this.registerUser.bind(this);
     this.state = {
-      redirect: false
+      redirect: false,
+      registerErrors: []
     }
   }
 
   registerUser(values) {
     this.props.dispatch(actions.register(values)).then(
-      ({registered}) => {if (registered) this.setState({ redirect: true });});
+      (res) => {
+        if (res && res.registered) this.setState({ redirect: true });
+        else if (res.errors) this.setState({registerErrors: res.errors})
+      });
   }
 
   render() {
-    const { redirect } = this.state;
-    const { errors } = this.props.auth;
+    const { redirect, registerErrors } = this.state;
 
     if (redirect) {
       return <Redirect to='/login?register=1'/>;
+    }
+
+
+    if (this.props.auth.isAuth) {
+      return <Redirect to='/'/>;
     }
 
     return (
@@ -33,7 +41,7 @@ export class Register extends React.Component {
           <div className="row">
             <div className="col-md-5">
               <h1>Register</h1>
-              <RegisterForm errors={errors} submitCb={this.registerUser}/>
+              <RegisterForm errors={registerErrors} submitCb={this.registerUser}/>
             </div>
             <div className="col-md-6 ml-auto">
               <div className="image-container">
@@ -48,10 +56,4 @@ export class Register extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  }
-}
-
-export default connect(mapStateToProps)(Register);
+export default connect()(Register);
