@@ -3,12 +3,19 @@ import React from 'react';
 export class Login extends React.Component {
 
   render() {
+    const { register } = this.props.params;
+
     return (
       <section id="login">
         <div className="bwm-form">
           <div className="row">
             <div className="col-md-5">
               <h1>Login</h1>
+              { register &&
+                <div className="alert alert-success">
+                  <p>You have been succesfuly registered, please login in</p>
+                </div>
+              }
               <form>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
