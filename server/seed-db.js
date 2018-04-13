@@ -1,50 +1,54 @@
 const Rental = require("./models/rental");
+const User = require("./models/user");
 
 module.exports = (function() {
   const data = {
     "rentals": [{
-      "title": "Nice view on River",
-      "city": "kosice",
-      "street": "Letna 9",
+      "title": "Grand Old Mansion-1",
+      "city": "San Francisco",
+      "street": "Main street",
       "category": "condo",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 4,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 43,
-      "shared": true
+      "dailyRate": 43
       },
       {
-      "title": "Central Apartment",
-      "city": "san francisco",
-      "street": "main street",
+      "title": "Grand Old Mansion-2",
+      "city": "New York",
+      "street": "Time Square",
       "category": "apartment",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 1,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 11,
-      "shared": false
+      "dailyRate": 11
       },
       {
-      "title": "Beautiful house",
-      "city": "new york",
-      "street": "times square",
+      "title": "Grand Old Mansion-3",
+      "city": "Spisska Nova Ves",
+      "street": "Banicka 1",
       "category": "house",
       "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
       "bedrooms": 5,
       "description": "Very nice apartment in center of the city.",
-      "dailyRate": 23,
-      "shared": false
-    }]
+      "dailyRate": 23
+    }],
+    "user": {username: "Filip99", email: "test@gmail.com", password: "testtest"}
   }
 
   function FakeDB() {};
 
-  FakeDB.prototype.seed = function() {
-    Rental.remove({}).then(() => {
-      data['rentals'].forEach(rental => {
-        const newRental = new Rental(rental);
-        newRental.save();
-      });
+  FakeDB.prototype.seed = async function() {
+    await User.remove({});
+    await Rental.remove({});
+
+    const user = new User(data['user']);
+    await user.save();
+
+    data['rentals'].forEach(rental => {
+      const newRental = new Rental(rental);
+      newRental.user = user;
+      newRental.save();
     });
   }
 

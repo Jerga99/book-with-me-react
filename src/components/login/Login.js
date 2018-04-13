@@ -10,13 +10,13 @@ export class Login extends React.Component {
             <div className="col-md-5">
               <h1>Login</h1>
               <form>
-                <div class="form-group">
-                  <label for="email">Email</label>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
                   <input type="email" className="form-control" id="email" required/>
                 </div>
 
                 <div className="form-group">
-                  <label for="password">Password</label>
+                  <label htmlFor="password">Password</label>
                   <input type="password" className="form-control" id="password" required/>
                 </div>
 

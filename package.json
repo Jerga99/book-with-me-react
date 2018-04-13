@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
     "bootstrap-daterangepicker": "^2.1.30",
