@@ -6,7 +6,7 @@ import { RECIEVE_RENTALS,
          REGISTER_FAILURE,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
-         RESET_AUTH_ERRORS } from './types';
+         LOGOUT_USER } from './types';
 
 const axiosService = Axios.init();
 
@@ -82,16 +82,18 @@ const loginFailure = (errors) => {
   }
 }
 
-export const resetAuthErrors = () => {
-  return {
-    type: RESET_AUTH_ERRORS,
-  }
-}
-
 export const loginSuccess = (token) => {
   return {
     type: LOGIN_SUCCESS,
     token: token
+  }
+}
+
+export const logout = () => {
+  localStorage.removeItem('auth_token');
+
+  return {
+    type: LOGOUT_USER
   }
 }
 

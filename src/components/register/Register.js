@@ -27,12 +27,7 @@ class Register extends React.Component {
     const { redirect, registerErrors } = this.state;
 
     if (redirect) {
-      return <Redirect to='/login?register=1'/>;
-    }
-
-
-    if (this.props.auth.isAuth) {
-      return <Redirect to='/'/>;
+      return <Redirect to={{pathname: '/login', state: { fromSuccessRegister: true } }} />;
     }
 
     return (

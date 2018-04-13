@@ -2,7 +2,8 @@ import { REGISTER_SUCCESS,
          REGISTER_FAILURE,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
-         RESET_AUTH_ERRORS} from '../actions/types';
+         RESET_AUTH_ERRORS,
+         LOGOUT_USER} from '../actions/types';
 import { INITIAL_STATE } from './initial-state';
 
 export const authReducer = (state = INITIAL_STATE.auth, action) => {
@@ -15,8 +16,8 @@ export const authReducer = (state = INITIAL_STATE.auth, action) => {
       return Object.assign({}, state, {registered: true, isAuth: true, token: action.token})
     case LOGIN_FAILURE:
       return Object.assign({}, state, {errors: action.errors})
-    case RESET_AUTH_ERRORS:
-      return Object.assign({}, state, {errors: []})
+    case LOGOUT_USER:
+      return Object.assign({}, state, {errors: [], token: '', isAuth: false})
     default:
       return state;
   }
