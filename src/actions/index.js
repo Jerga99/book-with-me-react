@@ -3,7 +3,9 @@ import { RECIEVE_RENTALS,
          RECIEVE_SELECTED_RENTAL,
          REQUEST_SELECTED_RENTAL,
          REGISTER_SUCCESS,
-         REGISTER_FAILURE } from './types';
+         REGISTER_FAILURE,
+         LOGIN_SUCCESS,
+         LOGIN_FAILURE } from './types';
 
 const axiosService = Axios.init();
 
@@ -46,7 +48,7 @@ export const fetchRentals = () => {
   }
 };
 
-// AUTH ACTIONS
+// AUTH ACTIONS - REGISTER
 
 const registerSuccess = (data) => {
   return {
@@ -69,3 +71,32 @@ export const register = (userData) => {
       .catch(({response}) => dispatch(registerFailure(response.data.errors)))
   }
 }
+
+// AUTH ACTIONS - LOGIN
+
+const loginSuccess = (data) => {
+  return {
+    type: LOGIN_SUCCESS,
+    isAuth: true,
+    token: data.token
+  }
+}
+
+const loginFailure = (errors) => {
+  return {
+    type: LOGIN_FAILURE,
+    errors
+  }
+}
+
+export const login = (userData) => {
+  return dispatch => {
+    return axiosService.post('/auth', {...userData})
+      .then(res => {
+        localStorage.setItem('auth_token', res.data.token);
+        dispatch(loginSuccess(res.data));
+      })
+      .catch(({response}) => dispatch(loginFailure(response.data.errors)))
+  }
+}
+

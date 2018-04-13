@@ -5,8 +5,9 @@ export const INITIAL_STATE = {
     isFetching: false
   },
   auth: {
-    token: "",
+    token: localStorage.getItem('auth_token') || "",
     registered: false,
-    errors: []
+    errors: [],
+    isAuth: false
   }
 }
