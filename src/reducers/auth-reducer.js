@@ -2,7 +2,6 @@ import { REGISTER_SUCCESS,
          REGISTER_FAILURE,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
-         RESET_AUTH_ERRORS,
          LOGOUT_USER} from '../actions/types';
 import { INITIAL_STATE } from './initial-state';
 
