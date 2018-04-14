@@ -15,7 +15,7 @@ import { withQueryString } from 'hoc/withQueryString';
 // Actions
 import * as actions from './actions';
 
-const LoginWithQueryString = withQueryString(Login);
+// const LoginWithQueryString = withQueryString(Login);
 
 class RentalApp extends React.Component {
 
@@ -43,7 +43,7 @@ class RentalApp extends React.Component {
   }
 
   render() {
-    const {auth} = this.props;
+    const { auth } = this.props;
 
     return (
       <BrowserRouter>
@@ -54,14 +54,13 @@ class RentalApp extends React.Component {
             <Route exact path='/rentals' component={ RentalList }/>
             <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
             <AuthRoute auth={auth} exact path='/register' component= { Register }/>
-            <AuthRoute auth={auth} exact path='/login' component= { LoginWithQueryString } />
+            <AuthRoute auth={auth} exact path='/login' component= { Login } />
           </div>
         </div>
       </BrowserRouter>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
