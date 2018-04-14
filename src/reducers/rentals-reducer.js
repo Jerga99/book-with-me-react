@@ -1,10 +1,21 @@
-import { RECIEVE_RENTALS, RECIEVE_SELECTED_RENTAL, REQUEST_SELECTED_RENTAL} from '../actions/types';
+import { RECIEVE_RENTALS,
+         RECIEVE_SELECTED_RENTAL,
+         REQUEST_SELECTED_RENTAL,
+         FETCH_RENTALS_FAILURE,
+         REQUEST_RENTALS_SEARCH,
+         REQUEST_RENTALS } from '../actions/types';
 import { INITIAL_STATE } from './initial-state';
 
 export const rentalsReducer = (state = INITIAL_STATE.rentals, action) => {
   switch(action.type){
     case RECIEVE_RENTALS:
-      return action.rentals;
+      return Object.assign({}, state, {items: action.rentals, isFetching: false}) ;
+    case FETCH_RENTALS_FAILURE:
+      return Object.assign({}, state, {items: [], isFetching: false});
+    case REQUEST_RENTALS:
+      return Object.assign({}, state, {isSearch: false, isFetching: true, searchCity: ''});
+    case REQUEST_RENTALS_SEARCH:
+      return Object.assign({}, state, {isSearch: true, isFetching: true, searchCity: action.city});
     default:
       return state;
   }

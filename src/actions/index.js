@@ -6,7 +6,10 @@ import { RECIEVE_RENTALS,
          REGISTER_FAILURE,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
-         LOGOUT_USER } from './types';
+         LOGOUT_USER,
+         FETCH_RENTALS_FAILURE,
+         REQUEST_RENTALS_SEARCH,
+         REQUEST_RENTALS } from './types';
 
 const axiosService = Axios.init();
 
@@ -32,6 +35,26 @@ const requestRentalById = () => {
   }
 }
 
+const fetchRentalsFailure = (errors) => {
+  return {
+    type: FETCH_RENTALS_FAILURE,
+    errors
+  }
+}
+
+const requestRentalsWithSearch = (city) => {
+  return {
+    type: REQUEST_RENTALS_SEARCH,
+    city: city
+  }
+}
+
+const requestRentals = () => {
+  return {
+    type: REQUEST_RENTALS
+  }
+}
+
 export const fetchRentalByid = (rentalId) => {
   return dispatch => {
     dispatch(requestRentalById());
@@ -41,11 +64,16 @@ export const fetchRentalByid = (rentalId) => {
   }
 }
 
-export const fetchRentals = () => {
+export const fetchRentals = (city) => {
+  const url = city ? `/rentals?city=${city}` : '/rentals';
+
   return dispatch => {
-    return axiosService.get('/rentals')
+    (city) ? dispatch(requestRentalsWithSearch(city)) : dispatch(requestRentals());
+
+    return axiosService.get(url)
       .then(res => res.data)
       .then(rentals => dispatch(recieveRentals(rentals)))
+      .catch(({response}) => dispatch(fetchRentalsFailure(response.data.errors)))
   }
 };
 
