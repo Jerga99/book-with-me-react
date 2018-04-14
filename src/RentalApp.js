@@ -26,7 +26,6 @@ class RentalApp extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(actions.fetchRentals());
     this.checkToken();
   }
 
@@ -52,6 +51,7 @@ class RentalApp extends React.Component {
           <div className="container">
             <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
             <Route exact path='/rentals' component={ RentalList }/>
+            <Route exact path='/rentals/:city/homes' component={ RentalList }/>
             <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
             <AuthRoute auth={auth} exact path='/register' component= { Register }/>
             <AuthRoute auth={auth} exact path='/login' component= { Login } />

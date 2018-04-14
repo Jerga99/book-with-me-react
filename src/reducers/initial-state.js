@@ -1,5 +1,10 @@
 export const INITIAL_STATE = {
-  rentals: [],
+  rentals: {
+    isFetching: false,
+    items: [],
+    isSearch: false,
+    searchCity: ''
+  },
   rental: {
     item: {},
     isFetching: false
