@@ -3,25 +3,6 @@ import Modal from 'react-responsive-modal';
 
 export class BookingConfirmation extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-
-    this.state = {
-      open: false
-    };
-  }
-
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-  handleShow() {
-    this.setState({ open: true });
-  }
-
   render() {
     const { booking, rental, didConfirm, close } = this.props;
 
