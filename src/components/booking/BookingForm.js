@@ -1,5 +1,6 @@
 import React from 'react';
-import DateRangePicker from 'react-bootstrap-daterangepicker';
+import { BookingCalendar } from './BookingCalendar';
+
 
 export function BookingForm(props) {
 
@@ -10,9 +11,7 @@ export function BookingForm(props) {
       <hr></hr>
       <div className="form-group">
       <label htmlFor="dates">Dates</label>
-        <DateRangePicker opens="left" containerStyles={{display: 'block'}}>
-          <input id="dates" type="text" className="form-control"></input>
-        </DateRangePicker>
+        <BookingCalendar bookings= {rental.bookings} />
       </div>
       <div className="form-group">
         <label htmlFor="guests">Guests</label>
