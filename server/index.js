@@ -7,6 +7,7 @@ const express       = require("express"),
       Rental        = require("./models/rental");
 
 const rentalsRoutes = require("./routes/rentals"),
+      bookingRoutes = require("./routes/bookings"),
       authRoutes    = require("./routes/auth");
 
 const url = `mongodb://${keys.DB_USER}:${keys.DB_PASSWORD}@ds241489.mlab.com:41489/bwm-dev-react`;
@@ -20,6 +21,7 @@ app.use(bodyParser.json()); // use od body parser to get values from get req
 
 app.use("/api/v1/", authRoutes);
 app.use("/api/v1/rentals", rentalsRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 const PORT = process.env.PORT || '3001';
 
