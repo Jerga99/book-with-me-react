@@ -9,7 +9,12 @@ class RentalSearch extends React.Component {
     super(props);
 
     this.searchInput = React.createRef();
-    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleKeyPress(history, event) {
+    if(event.key === 'Enter'){
+      this.handleSearch(history)
+    }
   }
 
   handleSearch(history) {
@@ -17,7 +22,7 @@ class RentalSearch extends React.Component {
     const { dispatch } = this.props;
 
     if (city) {
-      dispatch(actions.fetchRentals(city));
+      dispatch(actions.fetchRentalsByCity(city));
       history.push(`/rentals/${city}/homes`);
     } else {
       history.push("/rentals");
@@ -28,7 +33,7 @@ class RentalSearch extends React.Component {
     return (
       <Route render={({history}) => (
         <div className="form-inline my-2 my-lg-0">
-          <input ref={this.searchInput} className="form-control mr-sm-2 bwm-search" type="search" placeholder="Try 'New York'" aria-label="Search"></input>
+          <input onKeyPress={(event) => this.handleKeyPress(history, event)} ref={this.searchInput} className="form-control mr-sm-2 bwm-search" type="search" placeholder="Try 'New York'" aria-label="Search"></input>
           <button onClick={ () => this.handleSearch(history)} className="btn btn-outline-success my-2 my-sm-0 btn-bwm-search" type="button">Search</button>
         </div>
         )}>

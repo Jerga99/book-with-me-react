@@ -9,9 +9,9 @@ import { INITIAL_STATE } from './initial-state';
 export const rentalsReducer = (state = INITIAL_STATE.rentals, action) => {
   switch(action.type){
     case RECIEVE_RENTALS:
-      return Object.assign({}, state, {items: action.rentals, isFetching: false}) ;
+      return Object.assign({}, state, {items: action.rentals, isFetching: false, errors: []}) ;
     case FETCH_RENTALS_FAILURE:
-      return Object.assign({}, state, {items: [], isFetching: false});
+      return Object.assign({}, state, {items: [], isFetching: false, errors: action.errors});
     case REQUEST_RENTALS:
       return Object.assign({}, state, {isSearch: false, isFetching: true, searchCity: ''});
     case REQUEST_RENTALS_SEARCH:

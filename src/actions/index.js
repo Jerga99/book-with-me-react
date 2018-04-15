@@ -64,16 +64,21 @@ export const fetchRentalByid = (rentalId) => {
   }
 }
 
-export const fetchRentals = (city) => {
-  const url = city ? `/rentals?city=${city}` : '/rentals';
+export const fetchRentalsByCity = (city) => {
+  const url = `/rentals?city=${city.toLowerCase()}`
 
   return dispatch => {
-    (city) ? dispatch(requestRentalsWithSearch(city)) : dispatch(requestRentals());
+    dispatch(requestRentalsWithSearch(city))
+    getRentals(url, dispatch);
+  }
+}
 
-    return axiosService.get(url)
-      .then(res => res.data)
-      .then(rentals => dispatch(recieveRentals(rentals)))
-      .catch(({response}) => dispatch(fetchRentalsFailure(response.data.errors)))
+export const fetchRentals = (city) => {
+  const url = '/rentals';
+
+  return dispatch => {
+    dispatch(requestRentals());
+    getRentals(url, dispatch);
   }
 };
 
@@ -135,5 +140,13 @@ export const login = (userData) => {
       })
       .catch(({response}) => dispatch(loginFailure(response.data.errors)))
   }
+}
+
+
+function getRentals(url, dispatch) {
+  return axiosService.get(url)
+    .then(res => res.data)
+    .then(rentals => dispatch(recieveRentals(rentals)))
+    .catch(({response}) => dispatch(fetchRentalsFailure(response.data.errors)))
 }
 
