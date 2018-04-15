@@ -11,13 +11,6 @@ export class BookingCalendar extends React.Component {
     this.dateInput = React.createRef();
     this.takenDates = [];
 
-    this.state = {
-      selectedBooking: {
-        startAt: "",
-        endAt: ""
-      }
-    }
-
     this.checkInvalidDates = this.checkInvalidDates.bind(this);
     this.handleApply = this.handleApply.bind(this);
   }
@@ -33,16 +26,10 @@ export class BookingCalendar extends React.Component {
   handleApply(event, dateRangePicker) {
     const starAt = formatDate(dateRangePicker.startDate);
     const endAt = formatDate(dateRangePicker.endDate);
-
+    const { handleSelectDates } = this.props;
 
     this.dateInput.current.value = starAt + " to " +  endAt;
-
-    this.setState({
-      selectedBooking: {
-        starAt,
-        endAt
-      }
-    })
+    handleSelectDates(starAt, endAt);
   }
 
   computeTakenDates() {
@@ -70,5 +57,5 @@ export class BookingCalendar extends React.Component {
         <input ref={this.dateInput} id="dates" type="text" className="form-control"></input>
       </DateRangePicker>
     )
-  }q
+  }
 }
