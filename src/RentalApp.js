@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // Components
 import { Header } from 'components/shared/header/Header';
-import RentalList from 'components/rental/RentalList';
+import RentalListing from 'components/rental/rental-listing/RentalListing';
+import RentalSearchListing from 'components/rental/rental-listing/RentalSearchListing';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Register from 'components/register/Register';
 import Login from 'components/login/Login';
@@ -50,8 +51,8 @@ class RentalApp extends React.Component {
           <Header invalidateUser={this.invalidateUser} isAuth={auth.isAuth}/>
           <div className="container">
             <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
-            <Route exact path='/rentals' component={ RentalList }/>
-            <Route exact path='/rentals/:city/homes' component={ RentalList }/>
+            <Route exact path='/rentals' component={ RentalListing }/>
+            <Route exact path='/rentals/:city/homes' component={ RentalSearchListing }/>
             <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
             <AuthRoute auth={auth} exact path='/register' component= { Register }/>
             <AuthRoute auth={auth} exact path='/login' component= { Login } />

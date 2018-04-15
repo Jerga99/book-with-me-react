@@ -1,16 +1,17 @@
 export const INITIAL_STATE = {
   rentals: {
-    isFetching: false,
     items: [],
+    isFetching: false,
     isSearch: false,
-    searchCity: ''
+    searchCity: '',
+    errors: []
   },
   rental: {
     item: {},
     isFetching: false
   },
   auth: {
-    token: localStorage.getItem('auth_token') || "",
+    token: "",
     registered: false,
     errors: [],
     isAuth: false
