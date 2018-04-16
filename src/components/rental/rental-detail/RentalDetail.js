@@ -2,7 +2,7 @@ import React from 'react';
 import { RentalDetailInfo } from './RentalDetailInfo';
 import { connect } from 'react-redux';
 import { RentalMap } from 'components/map/RentalMap';
-import { Booking } from 'components/booking/Booking';
+import  Booking  from 'components/booking/Booking';
 import * as actions from 'actions';
 
 class RentalDetail extends React.Component {

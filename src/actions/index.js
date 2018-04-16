@@ -9,9 +9,53 @@ import { RECIEVE_RENTALS,
          LOGOUT_USER,
          FETCH_RENTALS_FAILURE,
          REQUEST_RENTALS_SEARCH,
-         REQUEST_RENTALS } from './types';
+         CREATE_BOOKING,
+         REQUEST_RENTALS,
+         REQUEST_BOOKING,
+         BOOKING_SUCCESS,
+         BOOKING_FAILURE} from './types';
 
 const axiosService = Axios.init();
+
+// BOOKINGS
+
+const bookingFailure = (errors) => {
+  return {
+    type: BOOKING_FAILURE,
+    errors
+  }
+}
+
+
+const bookingSuccess = (booking) => {
+  return {
+    type: BOOKING_SUCCESS,
+    booking
+  }
+}
+
+const requestBooking = () => {
+  return {
+    type: REQUEST_BOOKING
+  }
+}
+
+export const createBooking = (booking) => {
+  return {
+    type: CREATE_BOOKING,
+    booking
+  }
+}
+
+export const bookPlace = (booking) => {
+  return dispatch => {
+    dispatch(requestBooking);
+    return axiosService.post('/bookings', booking)
+      .then(res => res.data)
+      .then(booking => dispatch(bookingSuccess(booking)))
+      .catch(({response}) => dispatch(bookingFailure(response.data.errors)))
+  }
+}
 
 // RENTALS ACTIONS
 
@@ -124,6 +168,7 @@ export const loginSuccess = (token) => {
 
 export const logout = () => {
   localStorage.removeItem('auth_token');
+  Axios.removeAuth();
 
   return {
     type: LOGOUT_USER
@@ -136,6 +181,7 @@ export const login = (userData) => {
       .then(res => res.data.token)
       .then(token => {
         localStorage.setItem('auth_token', token);
+        Axios.setAuth();
         dispatch(loginSuccess(token));
       })
       .catch(({response}) => dispatch(loginFailure(response.data.errors)))

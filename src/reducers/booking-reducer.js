@@ -1,0 +1,20 @@
+import { REQUEST_BOOKING,
+         BOOKING_SUCCESS,
+         BOOKING_FAILURE,
+         CREATE_BOOKING } from '../actions/types';
+import { INITIAL_STATE } from './initial-state';
+
+export const bookingReducer = (state = INITIAL_STATE.booking, action) => {
+  switch(action.type) {
+    case CREATE_BOOKING:
+      return Object.assign({}, state, {item: action.booking, errors: [], isBooked: false});
+    case REQUEST_BOOKING:
+      return Object.assign({}, state, {errors: []});
+    case BOOKING_SUCCESS:
+      return Object.assign({}, state, {isBooked: true});
+    case BOOKING_FAILURE:
+      return Object.assign({}, state, {errors: action.errors});
+    default:
+      return state;
+  }
+}

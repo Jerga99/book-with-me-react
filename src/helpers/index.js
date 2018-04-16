@@ -9,7 +9,7 @@ export const resolveType = (isShared) => {
   return isShared ? 'shared' : 'whole';
 }
 
-export const getRangeOfDates =(start_at, end_at) => {
+export const getRangeOfDates = (start_at, end_at) => {
   let start = new Date(start_at);
   const end = new Date(end_at);
   const dateArr = [];

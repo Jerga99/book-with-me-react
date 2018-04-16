@@ -14,6 +14,12 @@ export const INITIAL_STATE = {
     token: "",
     registered: false,
     errors: [],
-    isAuth: false
+    isAuth: false,
+    username: ""
+  },
+  booking: {
+    item: {},
+    isBooked: false,
+    errors: []
   }
 }

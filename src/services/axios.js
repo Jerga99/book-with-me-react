@@ -8,10 +8,26 @@ export class Axios {
     return this.axiosInstance ? this.axiosInstance : this.createInstance();
   }
 
+  static setAuth() {
+    this.axiosInstance.defaults.headers.common['Authorization'] = authToken();
+  }
+
+  static removeAuth() {
+    this.axiosInstance.defaults.headers.common['Authorization'] = '';
+  }
+
   static createInstance() {
-    return this.axiosInstance = axios.create({
+    this.axiosInstance = axios.create({
       baseURL: '/api/v1',
       timeout: 1000
     });
+
+    return this.axiosInstance;
   }
+}
+
+function authToken() {
+  let token =  localStorage.getItem('auth_token');
+
+  return token ? `Bearer ${token}` : '';
 }
