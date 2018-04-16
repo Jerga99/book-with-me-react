@@ -2,6 +2,7 @@ import * as redux from 'redux';
 import thunk from 'redux-thunk';
 import { rentalsReducer, selectedRentalReducer } from './rentals-reducer';
 import { authReducer } from './auth-reducer'
+import { bookingReducer } from './booking-reducer'
 import { reducer as formReducer } from 'redux-form'
 
 export const init = () => {
@@ -9,7 +10,8 @@ export const init = () => {
     rentals: rentalsReducer,
     selectedRental: selectedRentalReducer,
     form: formReducer,
-    auth: authReducer
+    auth: authReducer,
+    booking: bookingReducer
   });
   const store = redux.createStore(reducer, redux.applyMiddleware(thunk));
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { BookingCalendar } from './BookingCalendar';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import { formatDate } from 'helpers';
+import * as moment from 'moment';
 
 
 export class BookingForm extends React.Component {
@@ -13,15 +15,21 @@ export class BookingForm extends React.Component {
       guests: ""
     };
 
+    this.dateInput = React.createRef();
+
     this.selectDates = this.selectDates.bind(this);
     this.selectGuests = this.selectGuests.bind(this);
+    this.checkInvalidDates = this.checkInvalidDates.bind(this);
   }
 
-  selectDates(startAt, endAt) {
-    this.setState({
-      startAt,
-      endAt
-    })
+  componentWillReceiveProps(nextProps){
+    if(nextProps.proposedBooking.isBooked !== this.props.proposedBooking.isBooked){
+      this.resetForm();
+    }
+  }
+
+  checkInvalidDates(date) {
+    return this.props.takenDates.includes(formatDate(date)) || date.diff(moment(), 'days', true) <= 0;
   }
 
   selectGuests(event) {
@@ -30,17 +38,41 @@ export class BookingForm extends React.Component {
     })
   }
 
+  reseDatetInput() {
+    this.dateInput.current.value = "";
+  }
+
+  selectDates(event, dateRangePicker) {
+    const startAt = formatDate(dateRangePicker.startDate);
+    const endAt = formatDate(dateRangePicker.endDate);
+
+    this.dateInput.current.value = startAt + " to " +  endAt;
+
+    this.setState({
+      startAt,
+      endAt
+    });
+  }
+
+  resetForm() {
+    this.setState({startAt: "",
+                   endAt: "",
+                   guests: ""});
+    this.reseDatetInput();
+  }
+
   render() {
-  const {rental, handleFormConfirm} = this.props;
-  const {startAt, endAt, guests} = this.state;
+    const { handleFormConfirm } = this.props;
+    const {startAt, endAt, guests} = this.state;
 
     return (
       <div className="booking">
-        <h3 className="booking-price">${rental.dailyRate} <span className="booking-per-night">per night</span></h3>
-        <hr></hr>
+        { this.props.title }
         <div className="form-group">
-        <label htmlFor="dates">Dates</label>
-          <BookingCalendar handleSelectDates={this.selectDates} bookings= {rental.bookings} />
+          <label htmlFor="dates">Dates</label>
+          <DateRangePicker onApply={this.selectDates} isInvalidDate={this.checkInvalidDates} opens="left" containerStyles={{display: 'block'}}>
+            <input ref={this.dateInput} id="dates" type="text" className="form-control"></input>
+          </DateRangePicker>
         </div>
         <div className="form-group">
           <label htmlFor="guests">Guests</label>
