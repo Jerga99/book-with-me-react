@@ -12,16 +12,16 @@ export function BwmInput ({
   return(
     <div className="form-group">
       <label>{label}</label>
-      <div class="input-group">
+      <div className="input-group">
       { symbol && (
-        <div class="input-group-prepend">
-          <div class="input-group-text">{symbol}</div>
+        <div className="input-group-prepend">
+          <div className="input-group-text">{symbol}</div>
         </div>
         )
       }
         <input {...input} type={type} className={className}/>
-        {touched && (error && <div className="alert alert-danger">{error}</div>)}
       </div>
+      {touched && (error && <div className="alert alert-danger">{error}</div>)}
     </div>
   )
 }

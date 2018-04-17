@@ -3,7 +3,9 @@ import { RECIEVE_RENTALS,
          REQUEST_SELECTED_RENTAL,
          FETCH_RENTALS_FAILURE,
          REQUEST_RENTALS_SEARCH,
-         REQUEST_RENTALS } from '../actions/types';
+         REQUEST_RENTALS,
+         CREATE_RENTAL_SUCCESS,
+         CREATE_RENTAL_FAIL } from '../actions/types';
 import { INITIAL_STATE } from './initial-state';
 
 export const rentalsReducer = (state = INITIAL_STATE.rentals, action) => {
@@ -16,6 +18,10 @@ export const rentalsReducer = (state = INITIAL_STATE.rentals, action) => {
       return Object.assign({}, state, {isSearch: false, isFetching: true, searchCity: ''});
     case REQUEST_RENTALS_SEARCH:
       return Object.assign({}, state, {isSearch: true, isFetching: true, searchCity: action.city});
+    case CREATE_RENTAL_SUCCESS:
+      return Object.assign({}, state, {items: [...state.items, action.rental]});
+    case CREATE_RENTAL_FAIL:
+      return Object.assign({}, state, {errors: action.errors});
     default:
       return state;
   }
