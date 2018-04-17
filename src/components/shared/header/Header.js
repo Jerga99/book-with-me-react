@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import RentalSearch from 'components/rental/RentalSearch';
 
 export function Header(props) {
-  const { isAuth } = props;
+  const { isAuth, username, invalidateUser } = props;
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -17,7 +17,8 @@ export function Header(props) {
           <div className="navbar-nav ml-auto">
             {(!isAuth && <Link to="/login" className="nav-item nav-link active" href="">Login <span className="sr-only">(current)</span></Link>)}
             {(!isAuth && <Link to="/register" className="nav-item nav-link" href="">Register</Link>)}
-            {(isAuth && <a onClick={props.invalidateUser} className="nav-item nav-link" href="">Logout</a>)}
+            {(isAuth && <a className="nav-item nav-link" href="#">Welcome {username}</a>)}
+            {(isAuth && <a onClick={invalidateUser} className="nav-item nav-link" href="">Logout</a>)}
           </div>
         </div>
       </div>

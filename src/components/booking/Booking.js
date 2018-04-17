@@ -3,8 +3,9 @@ import { BookingForm } from './BookingForm';
 import { getRangeOfDates } from 'helpers';
 import { connect } from 'react-redux';
 import { BookingConfirmation } from './BookingConfirmation';
+import { toast, ToastContainer } from 'react-toastify';
 import * as actions from 'actions';
-import * as moment from 'moment';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Booking extends React.Component {
 
@@ -53,11 +54,16 @@ class Booking extends React.Component {
     dispatch(actions.createBooking(booking));
   }
 
+  successNotify() {
+    toast.success("Place has been succesfully booked. Enjoy.");
+  }
+
   bookPlace() {
     const {dispatch, proposedBooking} = this.props;
 
     dispatch(actions.bookPlace(proposedBooking.item)).then((res) => {
        if (res && res.booking) {
+        this.successNotify();
         this.syncCalendar(res.booking);
         this.cancelConfirmation();
        }
@@ -81,7 +87,7 @@ class Booking extends React.Component {
 
     if (bookings && bookings.length) {
       bookings.forEach(booking => {
-        const datesRanges = this.getDatesRanges(booking.startAt, booking.endAt);
+        const datesRanges = getRangeOfDates(booking.startAt, booking.endAt);
 
         takenDates = [...takenDates, ...datesRanges];
       });
@@ -90,26 +96,13 @@ class Booking extends React.Component {
     }
   }
 
-  getDatesRanges(startAt, endAt) {
-    const range = getRangeOfDates(startAt, endAt);
-    const dates = [];
-
-    range.forEach(date => {
-      dates.push(date)
-    });
-
-    dates.push(moment(startAt).format('Y-MM-DD'));
-    dates.push(moment(endAt).format('Y-MM-DD'));
-
-    return dates;
-  }
-
   render() {
     const { didConfirm, takenDates } = this.state;
     const { rental, proposedBooking } = this.props;
 
     return (
       <section id="bookingPanel">
+      <ToastContainer></ToastContainer>
 
         <BookingConfirmation close={this.cancelConfirmation}
                              didConfirm={didConfirm}

@@ -33,8 +33,9 @@ class RentalApp extends React.Component {
   checkToken() {
     const token = localStorage.getItem('auth_token');
 
-    if (localStorage.getItem('auth_token')) {
+    if (token) {
       this.props.dispatch(actions.loginSuccess(token));
+      this.props.dispatch(actions.initUser(token));
     }
   }
 
@@ -48,7 +49,7 @@ class RentalApp extends React.Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Header invalidateUser={this.invalidateUser} isAuth={auth.isAuth}/>
+          <Header invalidateUser={this.invalidateUser} isAuth={auth.isAuth} username={auth.username}/>
           <div className="container">
             <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
             <Route exact path='/rentals' component={ RentalListing }/>

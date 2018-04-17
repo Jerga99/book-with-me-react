@@ -10,16 +10,21 @@ export const INITIAL_STATE = {
     item: {},
     isFetching: false
   },
-  auth: {
-    token: "",
-    registered: false,
-    errors: [],
-    isAuth: false,
-    username: ""
-  },
+  auth: initAuthState(),
   booking: {
     item: {},
     isBooked: false,
     errors: []
+  }
+}
+
+function initAuthState() {
+  const token = localStorage.getItem('auth_token');
+
+  return {
+    token: token ? token : '',
+    errors: [],
+    isAuth: token ? true : false,
+    username: ''
   }
 }
