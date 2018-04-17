@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 // Components
 import { Header } from 'components/shared/header/Header';
@@ -8,6 +8,7 @@ import RentalSearchListing from 'components/rental/rental-listing/RentalSearchLi
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Register from 'components/register/Register';
 import Login from 'components/login/Login';
+import { RentalCreate } from 'components/rental/rental-create/RentalCreate';
 import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
 import { AuthRoute } from 'components/shared/auth/AuthRoute';
 // HOC
@@ -51,12 +52,15 @@ class RentalApp extends React.Component {
         <div className="App">
           <Header invalidateUser={this.invalidateUser} isAuth={auth.isAuth} username={auth.username}/>
           <div className="container">
-            <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
-            <Route exact path='/rentals' component={ RentalListing }/>
-            <Route exact path='/rentals/:city/homes' component={ RentalSearchListing }/>
-            <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
-            <AuthRoute auth={auth} exact path='/register' component= { Register }/>
-            <AuthRoute auth={auth} exact path='/login' component= { Login } />
+            <Switch>
+              <Route exact path='/' render={() => (<Redirect to="/rentals"/> )}/>
+              <Route exact path='/rentals' component={ RentalListing }/>
+              <Route exact path='/rentals/:city/homes' component={ RentalSearchListing }/>
+              <ProtectedRoute auth={auth} exact path='/rentals/new' component={ RentalCreate }/>
+              <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
+              <AuthRoute auth={auth} exact path='/register' component= { Register }/>
+              <AuthRoute auth={auth} exact path='/login' component= { Login } />
+            </Switch>
           </div>
         </div>
       </BrowserRouter>
