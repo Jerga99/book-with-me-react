@@ -50,5 +50,17 @@ router.post("", Auth.authMiddleware, function(req, res) {
   });
 });
 
+router.get("/manage", Auth.authMiddleware, function(req, res) {
+  const user = res.locals.user;
+
+  Rental.where({user: user}).populate('bookings').exec(function(err, foundRentals){
+    if (err) {
+      return res.status(422).send({errors: normalizeErrors(err.errors) });
+    }
+
+    res.json(foundRentals);
+  });
+});
+
 module.exports = router;
 
