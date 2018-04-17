@@ -5,6 +5,41 @@ import RentalSearch from 'components/rental/RentalSearch';
 export function Header(props) {
   const { isAuth, username, invalidateUser } = props;
 
+  function renderDropdown() {
+    if (isAuth) {
+      return (
+        <div class="nav-item dropdown">
+          <a class="nav-link nav-item dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Owner Section
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <Link className="dropdown-item" to="/rentals/new">Create Rental</Link>
+            <Link className="dropdown-item" to="">Manage Rentals</Link>
+            <Link className="dropdown-item" to="">Manage Bookings</Link>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  function renderAuthControl() {
+    if (isAuth) {
+      return (
+        <React.Fragment>
+          <a className="nav-item nav-link" href="#">Welcome {username}</a>
+          <a onClick={invalidateUser} className="nav-item nav-link" href="">Logout</a>
+        </React.Fragment>
+      )
+    } else {
+      return (
+        <React.Fragment>
+          <Link to="/login" className="nav-item nav-link active" href="">Login <span className="sr-only">(current)</span></Link>
+          <Link to="/register" className="nav-item nav-link" href="">Register</Link>
+        </React.Fragment>
+        )
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container">
@@ -15,10 +50,8 @@ export function Header(props) {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
-            {(!isAuth && <Link to="/login" className="nav-item nav-link active" href="">Login <span className="sr-only">(current)</span></Link>)}
-            {(!isAuth && <Link to="/register" className="nav-item nav-link" href="">Register</Link>)}
-            {(isAuth && <a className="nav-item nav-link" href="#">Welcome {username}</a>)}
-            {(isAuth && <a onClick={invalidateUser} className="nav-item nav-link" href="">Logout</a>)}
+            {renderDropdown()}
+            {renderAuthControl()}
           </div>
         </div>
       </div>
