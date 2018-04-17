@@ -8,7 +8,7 @@ import RentalSearchListing from 'components/rental/rental-listing/RentalSearchLi
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Register from 'components/register/Register';
 import Login from 'components/login/Login';
-import { RentalCreate } from 'components/rental/rental-create/RentalCreate';
+import RentalCreate from 'components/rental/rental-create/RentalCreate';
 import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
 import { AuthRoute } from 'components/shared/auth/AuthRoute';
 // HOC

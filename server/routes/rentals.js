@@ -45,7 +45,7 @@ router.post("", Auth.authMiddleware, function(req, res) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     } else {
       User.update({_id: user.id}, { $push: {rentals: newRental}}, function(){});
-      res.status(200).send({});
+      res.status(200).send({rental: newRental});
     }
   });
 });

@@ -4,24 +4,23 @@ import { BwmInput } from 'components/shared/form/BwmInput';
 import { BwmSelect } from 'components/shared/form/BwmSelect';
 import { BwmResError } from 'components/shared/form/BwmError';
 import { BwmFileUpload } from 'components/shared/form/BwmFileUpload';
+import { BwmTextField } from 'components/shared/form/BwmTextField';
+import { minLength6, required } from 'components/shared/form/validators';
 
 class RentalCreateForm extends React.Component {
-
-  submit(values) {
-    debugger;
-  }
 
   render() {
     const { handleSubmit, pristine, submitting, submitCb, valid, errors, options } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(submitCb)}>
         <Field
           name="title"
           component={BwmInput}
           type="text"
           label="Title"
           className="form-control"
+          validate={[required, minLength6]}
           />
         <Field
           className="form-control"
@@ -37,12 +36,23 @@ class RentalCreateForm extends React.Component {
           type="text"
           label="Street"
           />
+
+        <Field
+          className="form-control"
+          name="description"
+          component={BwmTextField}
+          label="Description"
+          rows="6"
+          validate={[required, minLength6]}
+          />
+
         <Field
           className="form-control"
           name="category"
           options={options}
           component={BwmSelect}
           label="Category"
+          validate={required}
           />
 
           <Field
@@ -50,6 +60,7 @@ class RentalCreateForm extends React.Component {
           name="image"
           component={BwmFileUpload}
           label="Image"
+          validate={required}
           />
 
           <Field
@@ -69,15 +80,24 @@ class RentalCreateForm extends React.Component {
           label="Daily Rate"
           />
 
-        <button className="btn btn-bwm" type="submit" disabled={!valid || pristine || submitting}>
-            Register
-        </button>
+          <Field
+          className="form-control"
+          name="shared"
+          component={BwmInput}
+          type="checkbox"
+          label="Shared"
+          />
 
+        <button className="btn btn-bwm" type="submit" disabled={!valid || pristine || submitting}>
+            Create Rental
+        </button>
+        <BwmResError errors={errors}/>
       </form>
     )
   }
 }
 
 export default reduxForm({
-  form: 'rentalForm'
+  form: 'rentalForm',
+  initialValues: { shared: false }
 })(RentalCreateForm)

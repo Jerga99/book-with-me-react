@@ -14,6 +14,7 @@ export class BwmFileUpload  extends Component{
 
   render(){
     const {label, meta: { touched, error }} = this.props
+
     return(
      <div className="form-group">
      <label>{label}</label>

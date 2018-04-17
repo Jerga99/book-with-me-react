@@ -14,7 +14,9 @@ import { RECIEVE_RENTALS,
          REQUEST_BOOKING,
          BOOKING_SUCCESS,
          BOOKING_FAILURE,
-         INIT_USER} from './types';
+         INIT_USER,
+         CREATE_RENTAL_SUCCESS,
+         CREATE_RENTAL_FAIL} from './types';
 
 const axiosService = Axios.init();
 
@@ -26,7 +28,6 @@ const bookingFailure = (errors) => {
     errors
   }
 }
-
 
 const bookingSuccess = (booking) => {
   return {
@@ -59,6 +60,29 @@ export const bookPlace = (booking) => {
 }
 
 // RENTALS ACTIONS
+
+const rentalCreateSuccess = (rental) => {
+  return {
+    type: CREATE_RENTAL_SUCCESS,
+    rental
+  }
+}
+
+const rentalCreateFail = (errors) => {
+  return {
+    type: CREATE_RENTAL_FAIL,
+    errors
+  }
+}
+
+export const createRental = (rentalData) => {
+  return dispatch => {
+    return axiosService.post('/rentals', rentalData)
+      .then(res => res.data)
+      .then(rental => rentalCreateSuccess(rental))
+      .catch(({response}) => dispatch(rentalCreateFail(response.data.errors)))
+  }
+}
 
 const recieveRentals = (rentals) => {
   return {
