@@ -13,7 +13,8 @@ import { RECIEVE_RENTALS,
          REQUEST_RENTALS,
          REQUEST_BOOKING,
          BOOKING_SUCCESS,
-         BOOKING_FAILURE} from './types';
+         BOOKING_FAILURE,
+         INIT_USER} from './types';
 
 const axiosService = Axios.init();
 
@@ -160,6 +161,8 @@ const loginFailure = (errors) => {
 }
 
 export const loginSuccess = (token) => {
+  Axios.setAuth();
+
   return {
     type: LOGIN_SUCCESS,
     token: token
@@ -175,18 +178,40 @@ export const logout = () => {
   }
 }
 
+export const initUser = (token) => {
+  const username = parseJwt(token).username;
+
+  return {
+    type: INIT_USER,
+    username
+  }
+}
+
+const parseJwt = (token) => {
+  if (token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+
+    return JSON.parse(window.atob(base64));
+  }
+
+  return {};
+}
+
 export const login = (userData) => {
   return dispatch => {
     return axiosService.post('/auth', {...userData})
       .then(res => res.data.token)
       .then(token => {
         localStorage.setItem('auth_token', token);
-        Axios.setAuth();
         dispatch(loginSuccess(token));
+        dispatch(initUser(token));
       })
       .catch(({response}) => dispatch(loginFailure(response.data.errors)))
   }
 }
+
+
 
 
 function getRentals(url, dispatch) {
