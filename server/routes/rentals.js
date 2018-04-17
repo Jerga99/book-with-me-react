@@ -33,5 +33,22 @@ router.get("/:id", function(req, res) {
   });
 });
 
+router.post("", Auth.authMiddleware, function(req, res) {
+  const { title, city, street, category, image, bedrooms, description, dailyRate } = req.body;
+
+  const rental = new Rental({title, city, street, category, image, bedrooms, description, dailyRate});
+  const user = res.locals.user;
+  rental.user = user;
+
+  Rental.create(rental, function(err, newRental) {
+    if (err) {
+      return res.status(422).send({errors: normalizeErrors(err.errors) });
+    } else {
+      User.update({_id: user.id}, { $push: {rentals: newRental}}, function(){});
+      res.status(200).send({});
+    }
+  });
+});
+
 module.exports = router;
 
