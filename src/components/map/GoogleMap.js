@@ -6,7 +6,7 @@ import {
   Circle
 } from "react-google-maps";
 import MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel";
-import camelCase from 'camelcase';
+import camelCase from 'camel-case';
 
 // const GoogleMapComponent = (props) => {
 //   const { position } = props;

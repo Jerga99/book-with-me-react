@@ -14,12 +14,11 @@ import ManageBookings from 'components/manage/manage-bookings/ManageBookings';
 import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
 import { AuthRoute } from 'components/shared/auth/AuthRoute';
 // HOC
-import { withQueryString } from 'hoc/withQueryString';
+// import { withQueryString } from 'hoc/withQueryString';
+// const LoginWithQueryString = withQueryString(Login);
 
 // Actions
 import * as actions from './actions';
-
-// const LoginWithQueryString = withQueryString(Login);
 
 class RentalApp extends React.Component {
 
