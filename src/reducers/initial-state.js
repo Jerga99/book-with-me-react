@@ -15,6 +15,11 @@ export const INITIAL_STATE = {
     item: {},
     isBooked: false,
     errors: []
+  },
+  bookings: {
+    items: [],
+    isFetching: false,
+    errors: []
   }
 }
 

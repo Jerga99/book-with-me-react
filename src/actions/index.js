@@ -16,7 +16,10 @@ import { RECIEVE_RENTALS,
          BOOKING_FAILURE,
          INIT_USER,
          CREATE_RENTAL_SUCCESS,
-         CREATE_RENTAL_FAIL} from './types';
+         CREATE_RENTAL_FAIL,
+         REQUEST_BOOKINGS,
+         RECIEVE_BOOKINGS,
+         RECIEVE_BOOKINGS_FAIL} from './types';
 
 const axiosService = Axios.init();
 
@@ -56,6 +59,36 @@ export const bookPlace = (booking) => {
       .then(res => res.data)
       .then(booking => dispatch(bookingSuccess(booking)))
       .catch(({response}) => dispatch(bookingFailure(response.data.errors)))
+  }
+}
+
+const requestBookings = () => {
+  return {
+    type: REQUEST_BOOKINGS,
+  }
+}
+
+const recieveBookings = (bookings) => {
+  return {
+    type: RECIEVE_BOOKINGS,
+    bookings
+  }
+}
+
+const recieveBookingsFail = (errors) => {
+  return {
+    type: RECIEVE_BOOKINGS_FAIL,
+    errors
+  }
+}
+
+export const fetchBookings = () => {
+  return dispatch => {
+    dispatch(requestBookings());
+    axiosService.get('/bookings/manage')
+      .then(res => res.data)
+      .then(bookings => dispatch(recieveBookings(bookings)))
+      .catch(({response}) => dispatch(recieveBookingsFail(response.data.errors)))
   }
 }
 
