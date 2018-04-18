@@ -39,10 +39,12 @@
     "titleize": "^1.0.1"
   },
   "scripts": {
+    "start-dev": "react-scripts start",
+    "start": "cd server && node index.js",
+    "heroku-postbuild": "npm install --only=dev && npm install && npm run build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
+    "start-dev": "npm-run-all   -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
