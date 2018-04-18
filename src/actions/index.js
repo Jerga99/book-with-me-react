@@ -124,6 +124,16 @@ const requestRentals = () => {
   }
 }
 
+export const fetchRentalsByUser= () => {
+  return dispatch => {
+    dispatch(requestRentals());
+    return axiosService.get(`/rentals/manage`)
+      .then(res => res.data)
+      .then(rentals => dispatch(recieveRentals(rentals)))
+      .catch(({response}) => dispatch(registerFailure(response.data.errors)))
+  }
+}
+
 export const fetchRentalByid = (rentalId) => {
   return dispatch => {
     dispatch(requestRentalById());

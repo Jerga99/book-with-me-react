@@ -15,7 +15,7 @@ export const rentalsReducer = (state = INITIAL_STATE.rentals, action) => {
     case FETCH_RENTALS_FAILURE:
       return Object.assign({}, state, {items: [], isFetching: false, errors: action.errors});
     case REQUEST_RENTALS:
-      return Object.assign({}, state, {isSearch: false, isFetching: true, searchCity: ''});
+      return Object.assign({}, state, {items: [], isSearch: false, isFetching: true, searchCity: ''});
     case REQUEST_RENTALS_SEARCH:
       return Object.assign({}, state, {isSearch: true, isFetching: true, searchCity: action.city});
     case CREATE_RENTAL_SUCCESS:
