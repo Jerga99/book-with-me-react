@@ -12,7 +12,7 @@
     margin-right: 30px;
     font-size: 27px;
     letter-spacing: 1px;
-    color: $main-color;
+    color: $main-color !important;
     font-weight: 500;
 
     img {
@@ -23,6 +23,7 @@
 
   .nav-item {
     font-size: 14px;
+    color: $light-gray !important;
   }
 
   .btn-bwm-search {
@@ -35,10 +36,6 @@
       color: $main-color !important;
       box-shadow: none;
     }
-  }
-
-  .nav-item {
-    color: $main-color-white;
   }
 
    // DROPDOWN
