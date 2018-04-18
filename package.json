@@ -2,7 +2,11 @@
   "name": "book-with-me-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": {
+    "/api/v1/*": {
+      "target": "http://localhost:3001"
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^2.0.0",
