@@ -11,7 +11,7 @@ const rentalsRoutes = require("./routes/rentals"),
       bookingRoutes = require("./routes/bookings"),
       authRoutes    = require("./routes/auth");
 
-const url = `mongodb://${config.DB_USER}:${config.DB_PASSWORD}@${DB_URI}`;
+const url = `mongodb://${config.DB_USER}:${config.DB_PASSWORD}@${config.DB_URI}`;
 
 mongoose.connect(url).then(() => {
   if (process.env.NODE_ENV != 'production') {fakeDB.seed();}
