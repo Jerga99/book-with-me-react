@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start-dev": "react-scripts start",
-    "start": "cd server && node index.js",
+    "start": "npm start --prefix server",
     "heroku-postbuild": "npm install --only=dev && npm install && npm run build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
