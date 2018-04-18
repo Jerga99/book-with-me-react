@@ -14,6 +14,11 @@
     letter-spacing: 1px;
     color: $main-color;
     font-weight: 500;
+
+    img {
+      margin-left: -15px;
+      height: 40px;
+    }
   }
 
   .nav-item {

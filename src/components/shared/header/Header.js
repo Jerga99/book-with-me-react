@@ -41,9 +41,9 @@ export function Header(props) {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/rentals">BookWithMe </Link>
+        <Link className="navbar-brand" to="/rentals">BookWithMe <img src={process.env.PUBLIC_URL + '/react-logo.png'}/> </Link>
         <RentalSearch />
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
