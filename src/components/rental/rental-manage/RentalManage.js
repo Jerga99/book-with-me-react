@@ -26,10 +26,10 @@ class RentalManage extends React.Component {
         <h1 className="page-title">My Rentals</h1>
         <div className="row">
           {items && this.renderRentalCards()}
-          {!isFetching && items.length === 0 && <div class="alert alert-warning">
+          {!isFetching && items.length === 0 && <div className="alert alert-warning">
             You dont have any rentals currenty created. If you want advertised your property
             please follow this link.
-            <Link style={{'margin-left': '10px'}} class="btn btn-bwm" to="/rentals/new">Register Rental</Link>
+            <Link style={{'marginLeft': '10px'}} className="btn btn-bwm" to="/rentals/new">Register Rental</Link>
           </div>}
         </div>
       </section>
