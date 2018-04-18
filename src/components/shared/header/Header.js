@@ -8,13 +8,13 @@ export function Header(props) {
   function renderDropdown() {
     if (isAuth) {
       return (
-        <div class="nav-item dropdown">
-          <a class="nav-link nav-item dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="nav-item dropdown">
+          <a className="nav-link nav-item dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Owner Section
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <Link className="dropdown-item" to="/rentals/new">Create Rental</Link>
-            <Link className="dropdown-item" to="">Manage Rentals</Link>
+            <Link className="dropdown-item" to="/rentals/manage">Manage Rentals</Link>
             <Link className="dropdown-item" to="">Manage Bookings</Link>
           </div>
         </div>

@@ -6,6 +6,18 @@ const Auth = require("../controllers/auth");
 const {normalizeErrors} = require("../helpers/mongoose-helper");
 
 // TEST WITH AUTH MIDDLEWARE
+router.get("/manage", Auth.authMiddleware, function(req, res) {
+  const user = res.locals.user;
+
+  Rental.where({user: user}).populate('bookings').exec(function(err, foundRentals){
+    if (err) {
+      return res.status(422).send({errors: normalizeErrors(err.errors) });
+    }
+
+    res.json(foundRentals);
+  });
+});
+
 router.get("", function(req, res) {
   const city = req.query.city;
 
@@ -47,18 +59,6 @@ router.post("", Auth.authMiddleware, function(req, res) {
       User.update({_id: user.id}, { $push: {rentals: newRental}}, function(){});
       res.status(200).send({rental: newRental});
     }
-  });
-});
-
-router.get("/manage", Auth.authMiddleware, function(req, res) {
-  const user = res.locals.user;
-
-  Rental.where({user: user}).populate('bookings').exec(function(err, foundRentals){
-    if (err) {
-      return res.status(422).send({errors: normalizeErrors(err.errors) });
-    }
-
-    res.json(foundRentals);
   });
 });
 

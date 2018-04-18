@@ -9,6 +9,7 @@ import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Register from 'components/register/Register';
 import Login from 'components/login/Login';
 import RentalCreate from 'components/rental/rental-create/RentalCreate';
+import RentalManage from 'components/rental/rental-manage/RentalManage';
 import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
 import { AuthRoute } from 'components/shared/auth/AuthRoute';
 // HOC
@@ -57,6 +58,7 @@ class RentalApp extends React.Component {
               <Route exact path='/rentals' component={ RentalListing }/>
               <Route exact path='/rentals/:city/homes' component={ RentalSearchListing }/>
               <ProtectedRoute auth={auth} exact path='/rentals/new' component={ RentalCreate }/>
+              <ProtectedRoute auth={auth} exact path='/rentals/manage' component={ RentalManage }/>
               <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
               <AuthRoute auth={auth} exact path='/register' component= { Register }/>
               <AuthRoute auth={auth} exact path='/login' component= { Login } />

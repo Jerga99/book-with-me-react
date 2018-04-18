@@ -7,6 +7,7 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.loginUser = this.loginUser.bind(this);
     this.state = {
       loginErrors: []
