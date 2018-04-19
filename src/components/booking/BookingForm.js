@@ -1,6 +1,7 @@
 import React from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import { formatDate } from 'helpers';
+import { Link } from 'react-router-dom'
 import * as moment from 'moment';
 
 
@@ -62,23 +63,34 @@ export class BookingForm extends React.Component {
   }
 
   render() {
-    const { handleFormConfirm } = this.props;
+    const { handleFormConfirm, isAuth } = this.props;
     const {startAt, endAt, guests} = this.state;
 
     return (
       <div className="booking">
         { this.props.title }
-        <div className="form-group">
-          <label htmlFor="dates">Dates</label>
-          <DateRangePicker onApply={this.selectDates} isInvalidDate={this.checkInvalidDates} opens="left" containerStyles={{display: 'block'}}>
-            <input ref={this.dateInput} id="dates" type="text" className="form-control"></input>
-          </DateRangePicker>
-        </div>
-        <div className="form-group">
-          <label htmlFor="guests">Guests</label>
-          <input onChange={this.selectGuests} value={this.state.guests} type="number" className="form-control" id="guests" aria-describedby="emailHelp" placeholder=""></input>
-        </div>
-        <button disabled={!startAt || !endAt || !guests} onClick={() => handleFormConfirm({...this.state})} className="btn btn-bwm btn-confirm btn-block">Reserve place now</button>
+        <hr></hr>
+        { isAuth &&
+          <React.Fragment>
+            <div className="form-group">
+              <label htmlFor="dates">Dates</label>
+              <DateRangePicker onApply={this.selectDates} isInvalidDate={this.checkInvalidDates} opens="left" containerStyles={{display: 'block'}}>
+                <input ref={this.dateInput} id="dates" type="text" className="form-control"></input>
+              </DateRangePicker>
+            </div>
+            <div className="form-group">
+              <label htmlFor="guests">Guests</label>
+              <input onChange={this.selectGuests} value={this.state.guests} type="number" className="form-control" id="guests" aria-describedby="emailHelp" placeholder=""></input>
+            </div>
+            <button disabled={!startAt || !endAt || !guests} onClick={() => handleFormConfirm({...this.state})} className="btn btn-bwm btn-confirm btn-block">Reserve place now</button>
+          </React.Fragment>
+        }
+        {
+          !isAuth &&
+          <div className="should-login-btn-container">
+            <Link class="btn btn-bwm btn-login" to="/login">Login and book this place today</Link>
+          </div>
+        }
         <hr></hr>
         <p className="booking-note-title">People are interested into this house</p>
         <p className="booking-note-text">
