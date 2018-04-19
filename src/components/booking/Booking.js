@@ -98,12 +98,11 @@ class Booking extends React.Component {
 
   render() {
     const { didConfirm, takenDates } = this.state;
-    const { rental, proposedBooking } = this.props;
+    const { rental, proposedBooking, isAuth } = this.props;
 
     return (
       <section id="bookingPanel">
       <ToastContainer></ToastContainer>
-
         <BookingConfirmation close={this.cancelConfirmation}
                              didConfirm={didConfirm}
                              booking={proposedBooking}
@@ -113,6 +112,7 @@ class Booking extends React.Component {
                      title={this.title()}
                      takenDates={takenDates}
                      proposedBooking={proposedBooking}
+                     isAuth={isAuth}
                      >
         </BookingForm>
       </section>
@@ -122,7 +122,8 @@ class Booking extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    proposedBooking: state.booking
+    proposedBooking: state.booking,
+    isAuth: state.auth.isAuth
   }
 }
 

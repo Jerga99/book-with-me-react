@@ -36,6 +36,19 @@ router.get("", function(req, res) {
   }
 });
 
+router.delete("/:id", Auth.authMiddleware, function(req, res) {
+  Rental.deleteOne({_id: req.params.id})
+    .where({bookings: {$size: 0}})
+    .exec(function(err, rental) {
+      if (err) { return res.status(422).send({errors: normalizeErrors(err.errors) });}
+      if (rental.n == 0) {
+        return res.status(422).send({errors: [{title: 'Has Bookings', detail: "Cannot delete rental with active bookings. Please contact support for more info"}] });
+      }
+
+      return res.status(200).send({success: "ok"});
+  });
+});
+
 router.get("/:id", function(req, res) {
   Rental.findById(req.params.id).
     populate('user', 'email -_id').

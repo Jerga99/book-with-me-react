@@ -60,7 +60,7 @@ class RentalApp extends React.Component {
               <ProtectedRoute auth={auth} exact path='/rentals/new' component={ RentalCreate }/>
               <ProtectedRoute auth={auth} exact path='/rentals/manage' component={ RentalManage }/>
               <ProtectedRoute auth={auth} exact path='/bookings/manage' component={ ManageBookings }/>
-              <ProtectedRoute auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
+              <Route auth={auth} exact path='/rentals/:id' component={ RentalDetail }/>
               <AuthRoute auth={auth} exact path='/register' component= { Register }/>
               <AuthRoute auth={auth} exact path='/login' component= { Login } />
             </Switch>
