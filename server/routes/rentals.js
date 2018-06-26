@@ -36,6 +36,27 @@ router.get("", function(req, res) {
   }
 });
 
+router.patch("/:id", Auth.authMiddleware, function(req, res) {
+
+  const rentalData = req.body;
+  const user = res.locals.user;
+
+  Rental.findById(req.params.id)
+  .populate('user')
+  .exec(function(err, foundRental) {
+     if (foundRental.user.id !== user.id) {
+      return res.status(422).send({errors: [{title: 'Invalid User', detail: "Update not allowed!"}] });
+    }
+
+    if (err) { return res.status(422).send({errors: normalizeErrors(err.errors)})};
+
+    foundRental.set(rentalData);
+    foundRental.save();
+
+    return res.status(200).send({updated: "ok"});
+  });
+});
+
 router.delete("/:id", Auth.authMiddleware, function(req, res) {
   Rental.deleteOne({_id: req.params.id})
     .where({bookings: {$size: 0}})
